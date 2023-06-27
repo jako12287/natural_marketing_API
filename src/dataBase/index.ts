@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
+import { URI_DB } from "../config";
 
-const URI =
-  "mongodb+srv://johandev:johancortes@cluster0.tku5o.mongodb.net/natural_BD?retryWrites=true&w=majority";
-
+const URI = URI_DB
 const conectDB = async () => {
   try {
     await mongoose.connect(URI, {
