@@ -29,12 +29,17 @@ export const Login = async (req: Request, res: Response) => {
       const token = generateToken(adminindb?._id);
 
       res.send({
-        message: "login success",
+        message: { en: "login success", es: "Inicio de sesión exitoso" },
         token,
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
   }
 };

@@ -17,10 +17,16 @@ const Offers_1 = __importDefault(require("../models/Offers"));
 const getAllOffers = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const getData = yield Offers_1.default.find();
-        res.send({ message: "getOffers", size: getData.length, data: getData });
+        res.send({ message: "getOffers", data: getData });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.getAllOffers = getAllOffers;
@@ -35,28 +41,46 @@ const postOffers = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send({ message: "Successfully created", data: newOffer });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.postOffers = postOffers;
 const deleteOffer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     if (!data._id) {
-        res.status(400).json({ message: "Missing required field: _id" });
+        res.status(400).json({
+            message: {
+                en: "Missing required field: _id",
+                es: "Falta el campo obligatorio: _id",
+            },
+        });
         return;
     }
     try {
         const offer = yield Offers_1.default.findById(data._id);
         if (!offer) {
-            res.status(404).json({ message: "Offer not found" });
+            res.status(404).json({
+                message: { en: "Offer not found", es: "Oferta no encontrada" },
+            });
             return;
         }
         yield offer.deleteOne();
         return res.send({ message: "Offer deleted successfully" });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error deleting the offer" });
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
         return;
     }
 });

@@ -7,7 +7,13 @@ export const getProducts = async (_req: Request, res: Response) => {
     const getData = await ProductModel.find({});
     res.send({ message: "getAllProducts", data: getData });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
   }
 };
 
@@ -21,7 +27,13 @@ export const getProductById = async (req: Request, res: Response) => {
     }
     res.send({ message: `getProductById`, data: getData });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
   }
 };
 
@@ -35,19 +47,29 @@ export const postProducts = async (req: Request, res: Response) => {
     photos: data.photos,
     status: data.status,
   });
-  console.log("data de product post", req.body);
   try {
     await newProduct.save();
     res.send({ message: "200 ok", data: newProduct });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
   }
 };
 
 export const upDateProducts = async (req: Request, res: Response) => {
   const data: PropsProductData = req.body;
   if (!data._id) {
-    res.status(400).json({ message: "Missing required field: _id" });
+    res.status(400).json({
+      message: {
+        en: "Missing required field: _id",
+        es: "Falta el campo obligatorio: _id",
+      },
+    });
     return;
   }
   try {
@@ -70,8 +92,13 @@ export const upDateProducts = async (req: Request, res: Response) => {
     }
     res.send({ message: "Product update successfully", data: product });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error updating the product" });
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
     return;
   }
 };
@@ -96,8 +123,13 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
     return res.send({ message: "Product deleted successfully" });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Error deleting the product" });
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
     return;
   }
 };

@@ -17,10 +17,16 @@ const Faq_1 = __importDefault(require("../models/Faq"));
 const getAllFaq = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const getData = yield Faq_1.default.find();
-        res.send({ message: "getFaq", size: getData.length, data: getData });
+        res.send({ message: "getFaq", data: getData });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.getAllFaq = getAllFaq;
@@ -36,7 +42,13 @@ const postFaqs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.send({ message: "Successfully created", data: newFaq });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.postFaqs = postFaqs;
@@ -61,8 +73,10 @@ const updateFaqs = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.send({ message: "Faq update successfully", data: faq });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error updating the Faq" });
+        res.status(500).json({
+            message: { en: "Error updating", es: "Error al actualizar" },
+            error: { error },
+        });
         return;
     }
 });
@@ -70,21 +84,36 @@ exports.updateFaqs = updateFaqs;
 const deleteFaq = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const faqId = req.body._id;
     if (!faqId) {
-        res.status(400).json({ message: "Missing required field: _id" });
+        res.status(400).json({
+            message: {
+                en: "Missing required field: _id",
+                es: "Falta el campo obligatorio: _id",
+            },
+        });
         return;
     }
     try {
         const deletedFaq = yield Faq_1.default.findByIdAndDelete(faqId);
         if (deletedFaq) {
-            res.send({ message: "Faq deleted successfully", data: deletedFaq });
+            res.send({
+                message: { en: "Deleted successfully", es: "Eliminada con éxito" },
+                data: deletedFaq,
+            });
         }
         else {
-            res.status(404).send({ message: "Faq not found" });
+            res
+                .status(404)
+                .send({ message: { en: "Faq not found", es: "Faq no encontrada" } });
         }
     }
     catch (error) {
-        console.log(error);
-        res.status(500).send({ message: "Error deleting the Faq" });
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.deleteFaq = deleteFaq;

@@ -20,7 +20,13 @@ const getProducts = (_req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.send({ message: "getAllProducts", data: getData });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.getProducts = getProducts;
@@ -35,7 +41,13 @@ const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send({ message: `getProductById`, data: getData });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.getProductById = getProductById;
@@ -49,20 +61,30 @@ const postProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         photos: data.photos,
         status: data.status,
     });
-    console.log("data de product post", req.body);
     try {
         yield newProduct.save();
         res.send({ message: "200 ok", data: newProduct });
     }
     catch (error) {
-        console.log(error);
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.postProducts = postProducts;
 const upDateProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     if (!data._id) {
-        res.status(400).json({ message: "Missing required field: _id" });
+        res.status(400).json({
+            message: {
+                en: "Missing required field: _id",
+                es: "Falta el campo obligatorio: _id",
+            },
+        });
         return;
     }
     try {
@@ -87,8 +109,13 @@ const upDateProducts = (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.send({ message: "Product update successfully", data: product });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error updating the product" });
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
         return;
     }
 });
@@ -109,8 +136,13 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.send({ message: "Product deleted successfully" });
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Error deleting the product" });
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
         return;
     }
 });

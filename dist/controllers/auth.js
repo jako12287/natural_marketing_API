@@ -37,14 +37,19 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
             const token = (0, jwt_1.generateToken)(adminindb === null || adminindb === void 0 ? void 0 : adminindb._id);
             res.send({
-                message: "login success",
+                message: { en: "login success", es: "Inicio de sesión exitoso" },
                 token,
             });
         }
     }
     catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Internal server error" });
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
     }
 });
 exports.Login = Login;
