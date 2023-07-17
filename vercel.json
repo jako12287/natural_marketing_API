@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "tsconfig.json",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/.*",
+        "dest": "dist/index.js"
+      },
+      {
+        "src": ".*",
+        "dest": "dist/index.js"
+      }
+    ],
+    "env": {
+      "PORT": "@config.PORT",
+      "SECRET_REGISTRATION_CODE": "@config.SECRET_REGISTRATION_CODE",
+      "SECRET_TOKEN": "@config.SECRET_TOKEN",
+      "URI_DB": "@config.URI_DB"
+    }
+  }
+  

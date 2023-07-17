@@ -1,3 +1,4 @@
 node_modules
 package-lock.json
-# src/config.ts
+src/config.ts
+/dist
