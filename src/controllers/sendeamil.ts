@@ -11,9 +11,8 @@ const transporter: Transporter = nodemailer.createTransport({
   },
 });
 
-export const postSend = (req: Request, res: Response) => {
+export const postSend = async (req: Request, res: Response) => {
   const { name, email, phone, message } = req.body;
-  console.log("datos de body senemail", name, email, phone, message);
 
   const mailOptions: SendMailOptions = {
     from: EMAIL,
@@ -22,16 +21,6 @@ export const postSend = (req: Request, res: Response) => {
     html: htmlContentAdmin({ name, phone, email, message }),
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send("Error al enviar el correo.");
-    } else {
-      console.log("Correo enviado: " + info.response);
-      res.status(200).send("Correo enviado exitosamente.");
-    }
-  });
-
   const usermailOptions: SendMailOptions = {
     from: EMAIL,
     to: email,
@@ -39,13 +28,23 @@ export const postSend = (req: Request, res: Response) => {
     html: htmlContentUser({ name }),
   };
 
-  transporter.sendMail(usermailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send("Error al enviar el correo.");
-    } else {
-      console.log("Correo enviado: " + info.response);
-      res.status(200).send("Correo enviado exitosamente al usuario.");
-    }
-  });
+  try {
+    await Promise.all([
+      transporter.sendMail(mailOptions),
+      transporter.sendMail(usermailOptions),
+    ]);
+
+    console.log("Correo enviado a administrador y usuario.");
+    res.send({ message: "Correos enviados exitosamente", data: [] })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
+  }
+
 };
