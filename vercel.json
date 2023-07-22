@@ -17,10 +17,10 @@
       }
     ],
     "env": {
-      "PORT": "@config.PORT",
-      "SECRET_REGISTRATION_CODE": "@config.SECRET_REGISTRATION_CODE",
-      "SECRET_TOKEN": "@config.SECRET_TOKEN",
-      "URI_DB": "@config.URI_DB"
+      "PORT": "src/config.PORT",
+      "SECRET_REGISTRATION_CODE": "src/config.SECRET_REGISTRATION_CODE",
+      "SECRET_TOKEN": "src/config.SECRET_TOKEN",
+      "URI_DB": "src/config.URI_DB"
     }
   }
   
