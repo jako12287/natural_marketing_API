@@ -24,7 +24,7 @@ export const postSend = async (req: Request, res: Response) => {
   const usermailOptions: SendMailOptions = {
     from: EMAIL,
     to: email,
-    subject: "Solicitud de contacto",
+    subject: `Hola ${name} contactaste a Natural Marketing`,
     html: htmlContentUser({ name }),
   };
 
