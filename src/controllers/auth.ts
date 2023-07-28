@@ -31,6 +31,7 @@ export const Login = async (req: Request, res: Response) => {
       res.send({
         message: { en: "login success", es: "Inicio de sesión exitoso" },
         token,
+        user: { _id: adminindb._id, email: adminindb.email },
       });
     }
   } catch (error) {

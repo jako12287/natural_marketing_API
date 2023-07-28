@@ -39,6 +39,7 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.send({
                 message: { en: "login success", es: "Inicio de sesión exitoso" },
                 token,
+                user: { _id: adminindb._id, email: adminindb.email },
             });
         }
     }
