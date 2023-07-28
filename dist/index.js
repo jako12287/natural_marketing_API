@@ -13,6 +13,7 @@ const Faq_routes_1 = __importDefault(require("./routes/Faq.routes"));
 const admin_routes_1 = __importDefault(require("./routes/admin.routes"));
 const Auth_routes_1 = __importDefault(require("./routes/Auth.routes"));
 const sendEmail_routes_1 = __importDefault(require("./routes/sendEmail.routes"));
+const verifyToken_1 = __importDefault(require("./routes/verifyToken"));
 const config_1 = require("./config");
 app_1.default.use((0, cors_1.default)());
 app_1.default.use(express_1.default.json());
@@ -22,6 +23,7 @@ app_1.default.use(Offers_routes_1.default);
 app_1.default.use(Faq_routes_1.default);
 app_1.default.use(admin_routes_1.default);
 app_1.default.use(sendEmail_routes_1.default);
+app_1.default.use(verifyToken_1.default);
 (0, dataBase_1.default)().then(() => {
     app_1.default.listen(config_1.PORT, () => {
         console.log(`Servidor Express iniciado en el puerto ${config_1.PORT}`);
