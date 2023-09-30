@@ -22,9 +22,10 @@ app.use(routerAdmin);
 app.use(routerSendEmail);
 app.use(routerVerifyToken);
 
-app.get("*", (_, res) => {
-  res.redirect("/products");
-});
+const publicPath = path.join(
+  __dirname,
+  "../src/assets/ssr/index.html"
+);
 
 conectDB().then(() => {
   app.listen(PORT, () => {
