@@ -23,7 +23,7 @@ app.use(routerSendEmail);
 app.use(routerVerifyToken);
 
 app.get("*", (_req, res) => {
-  res.sendFile(path.join(__dirname, "public", "../src/assets/ssr/index.html")); // Ajusta la ruta a tu archivo HTML principal.
+  res.send({ message: "getAllProducts", data: {} });
 });
 
 conectDB().then(() => {
