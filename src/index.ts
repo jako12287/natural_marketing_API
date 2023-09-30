@@ -10,9 +10,10 @@ import routerLogin from "./routes/Auth.routes";
 import routerSendEmail from "./routes/sendEmail.routes";
 import routerVerifyToken from "./routes/verifyToken";
 import { PORT } from "./config";
+import path from "path";
 
 app.use(cors());
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: "50mb" }));
 app.use(routerLogin);
 app.use(routeProducts);
 app.use(routerOffers);
@@ -20,6 +21,10 @@ app.use(routerFaq);
 app.use(routerAdmin);
 app.use(routerSendEmail);
 app.use(routerVerifyToken);
+
+app.get("*", (_, res) => {
+  res.redirect("https://naturalmarketing.onrender.com");
+});
 
 conectDB().then(() => {
   app.listen(PORT, () => {
