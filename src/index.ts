@@ -23,7 +23,7 @@ app.use(routerSendEmail);
 app.use(routerVerifyToken);
 
 app.get("*", (_, res) => {
-  res.redirect("https://naturalmarketing.onrender.com");
+  res.redirect("/products");
 });
 
 conectDB().then(() => {
