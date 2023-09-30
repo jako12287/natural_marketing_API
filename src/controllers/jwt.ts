@@ -14,6 +14,7 @@ interface PropsVerify {
 export const generateToken = (userId: PropsGenerate) => {
   // Tiempo de caducidad (24 horas a partir del momento actual)
   const payload = { userId, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 };
+  // const payload = { userId, exp: Math.floor(Date.now() / 1000) + 20 };
   const token = jwt.sign(payload, secretKey);
   return token;
 };

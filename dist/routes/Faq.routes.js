@@ -5,6 +5,7 @@ const faq_1 = require("../controllers/faq");
 const middlewares_1 = require("../middlewares");
 const router = (0, express_1.Router)();
 router.get("/faq", faq_1.getAllFaq);
+router.get("/faq/:id", faq_1.getFaqById);
 router.post("/faq", middlewares_1.authenticate, faq_1.postFaqs);
 router.put("/faq", middlewares_1.authenticate, faq_1.updateFaqs);
 router.delete("/faq", middlewares_1.authenticate, faq_1.deleteFaq);

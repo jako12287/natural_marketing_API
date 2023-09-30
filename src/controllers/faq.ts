@@ -17,6 +17,26 @@ export const getAllFaq = async (_req: Request, res: Response) => {
   }
 };
 
+export const getFaqById = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const getData = await FaqModel.findById(id);
+    if (!getData) {
+      res.send({ message: "FAQ not found", data: {} });
+      return;
+    }
+    res.send({ message: `getFaqById`, data: getData });
+  } catch (error) {
+    res.status(500).json({
+      message: {
+        en: "Internal server error",
+        es: "Error interno del servidor",
+      },
+      error: { error },
+    });
+  }
+};
+
 export const postFaqs = async (req: Request, res: Response) => {
   const data: PropsFaqData = req.body;
   const newFaq = new FaqModel({

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteFaq = exports.updateFaqs = exports.postFaqs = exports.getAllFaq = void 0;
+exports.deleteFaq = exports.updateFaqs = exports.postFaqs = exports.getFaqById = exports.getAllFaq = void 0;
 const Faq_1 = __importDefault(require("../models/Faq"));
 const getAllFaq = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -30,6 +30,27 @@ const getAllFaq = (_req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getAllFaq = getAllFaq;
+const getFaqById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const getData = yield Faq_1.default.findById(id);
+        if (!getData) {
+            res.send({ message: "FAQ not found", data: {} });
+            return;
+        }
+        res.send({ message: `getFaqById`, data: getData });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: {
+                en: "Internal server error",
+                es: "Error interno del servidor",
+            },
+            error: { error },
+        });
+    }
+});
+exports.getFaqById = getFaqById;
 const postFaqs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     const newFaq = new Faq_1.default({

@@ -16,7 +16,7 @@ const sendEmail_routes_1 = __importDefault(require("./routes/sendEmail.routes"))
 const verifyToken_1 = __importDefault(require("./routes/verifyToken"));
 const config_1 = require("./config");
 app_1.default.use((0, cors_1.default)());
-app_1.default.use(express_1.default.json());
+app_1.default.use(express_1.default.json({ limit: '50mb' }));
 app_1.default.use(Auth_routes_1.default);
 app_1.default.use(Products_routes_1.default);
 app_1.default.use(Offers_routes_1.default);
