@@ -3,3 +3,5 @@ package-lock.json
 src/config.ts
 /dist
 .vercel
+config.ts
+src/config.ts

@@ -24,8 +24,8 @@ app_1.default.use(Faq_routes_1.default);
 app_1.default.use(admin_routes_1.default);
 app_1.default.use(sendEmail_routes_1.default);
 app_1.default.use(verifyToken_1.default);
-app_1.default.get("*", (_, res) => {
-    res.redirect("https://naturalmarketing.onrender.com");
+app_1.default.get("*", (_req, res) => {
+    res.send({ message: "getAllProducts", data: {} });
 });
 (0, dataBase_1.default)().then(() => {
     app_1.default.listen(config_1.PORT, () => {

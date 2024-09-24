@@ -12,13 +12,13 @@ const transporter: Transporter = nodemailer.createTransport({
 });
 
 export const postSend = async (req: Request, res: Response) => {
-  const { name, email, phone, message } = req.body;
+  const { name, email, subjectmatter, message } = req.body;
 
   const mailOptions: SendMailOptions = {
     from: EMAIL,
     to: EMAIL,
     subject: "Solicitud de contacto",
-    html: htmlContentAdmin({ name, phone, email, message }),
+    html: htmlContentAdmin({ name, subjectmatter, email, message }),
   };
 
   const usermailOptions: SendMailOptions = {
