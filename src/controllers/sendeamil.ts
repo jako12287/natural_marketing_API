@@ -4,7 +4,9 @@ import { EMAIL, PASSWORDEMAIL } from "../config";
 import { htmlContentAdmin, htmlContentUser } from "../utils/templateSendEmail";
 
 const transporter: Transporter = nodemailer.createTransport({
-  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: EMAIL,
     pass: PASSWORDEMAIL,
@@ -24,7 +26,7 @@ export const postSend = async (req: Request, res: Response) => {
   const usermailOptions: SendMailOptions = {
     from: EMAIL,
     to: email,
-    subject: `Hola ${name} contactaste a Natural Marketing`,
+    subject: `Hola ${name} contactaste a JCMaker`,
     html: htmlContentUser({ name }),
   };
 
@@ -35,7 +37,7 @@ export const postSend = async (req: Request, res: Response) => {
     ]);
 
     console.log("Correo enviado a administrador y usuario.");
-    res.send({ message: "Correos enviados exitosamente", data: [] })
+    res.send({ message: "Correos enviados exitosamente", data: [] });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -46,5 +48,4 @@ export const postSend = async (req: Request, res: Response) => {
       error: { error },
     });
   }
-
 };

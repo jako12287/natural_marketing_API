@@ -8,6 +8,7 @@ import conectDB from "./dataBase";
 // import routerAdmin from "./routes/admin.routes";
 // import routerLogin from "./routes/Auth.routes";
 import routerSendEmail from "./routes/sendEmail.routes";
+import routerNewslatter from "./routes/Newslatter.routes";
 // import routerVerifyToken from "./routes/verifyToken";
 import { PORT } from "./config";
 import path from "path";
@@ -20,6 +21,7 @@ app.use(express.json({ limit: "50mb" }));
 // app.use(routerFaq);
 // app.use(routerAdmin);
 app.use(routerSendEmail);
+app.use(routerNewslatter);
 // app.use(routerVerifyToken);
 
 app.get("*", (_req, res) => {
