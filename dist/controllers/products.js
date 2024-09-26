@@ -8,16 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProduct = exports.upDateProducts = exports.postProducts = exports.getProductById = exports.getProducts = void 0;
-const Products_1 = __importDefault(require("../models/Products"));
+exports.getProducts = void 0;
 const getProducts = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const getData = yield Products_1.default.find({});
-        res.send({ message: "getAllProducts", data: getData });
+        res.send({ message: "No products available", data: [] });
     }
     catch (error) {
         res.status(500).json({
@@ -30,120 +25,3 @@ const getProducts = (_req, res) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.getProducts = getProducts;
-const getProductById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        const getData = yield Products_1.default.findById(id);
-        if (!getData) {
-            res.send({ message: "Product not found", data: {} });
-            return;
-        }
-        res.send({ message: `getProductById`, data: getData });
-    }
-    catch (error) {
-        res.status(500).json({
-            message: {
-                en: "Internal server error",
-                es: "Error interno del servidor",
-            },
-            error: { error },
-        });
-    }
-});
-exports.getProductById = getProductById;
-const postProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    const newProduct = new Products_1.default({
-        name: data.name,
-        descriptionShort: data.descriptionShort,
-        descriptionLarge: data.descriptionLarge,
-        price: data.price,
-        photos: data.photos,
-        status: data.status,
-    });
-    try {
-        yield newProduct.save();
-        res.send({ message: "200 ok", data: newProduct });
-    }
-    catch (error) {
-        res.status(500).json({
-            message: {
-                en: "Internal server error",
-                es: "Error interno del servidor",
-            },
-            error: { error },
-        });
-    }
-});
-exports.postProducts = postProducts;
-const upDateProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    if (!data._id) {
-        res.status(400).json({
-            message: {
-                en: "Missing required field: _id",
-                es: "Falta el campo obligatorio: _id",
-            },
-        });
-        return;
-    }
-    try {
-        const product = yield Products_1.default.findById(data._id);
-        if (!product) {
-            res.status(404).json({ message: "Product not found" });
-            return;
-        }
-        else {
-            data.name ? (product.name = data.name) : null;
-            data.descriptionShort
-                ? (product.descriptionShort = data.descriptionShort)
-                : null;
-            data.descriptionLarge
-                ? (product.descriptionLarge = data.descriptionLarge)
-                : null;
-            data.price ? (product.price = data.price) : null;
-            data.photos ? (product.photos = data.photos) : null;
-            data.status ? (product.status = data.status) : null;
-            yield product.save();
-        }
-        res.send({ message: "Product update successfully", data: product });
-    }
-    catch (error) {
-        res.status(500).json({
-            message: {
-                en: "Internal server error",
-                es: "Error interno del servidor",
-            },
-            error: { error },
-        });
-        return;
-    }
-});
-exports.upDateProducts = upDateProducts;
-const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    if (!data._id) {
-        res.status(400).json({ message: "Missing required field: _id" });
-        return;
-    }
-    try {
-        const product = yield Products_1.default.findById(data._id);
-        if (!product) {
-            res.status(404).json({ message: "Product not found" });
-            return;
-        }
-        yield product.deleteOne();
-        return res.send({ message: "Product deleted successfully" });
-    }
-    catch (error) {
-        res.status(500).json({
-            message: {
-                en: "Internal server error",
-                es: "Error interno del servidor",
-            },
-            error: { error },
-        });
-        return;
-    }
-});
-exports.deleteProduct = deleteProduct;
