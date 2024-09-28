@@ -4,10 +4,12 @@ import cors from "cors";
 import conectDB from "./dataBase";
 import routerSendEmail from "./routes/sendEmail.routes";
 import routerNewslatter from "./routes/Newslatter.routes";
+import routerStatus from "./routes/StatusSever.routes";
 import { PORT } from "./config";
 
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
+app.use(routerStatus);
 app.use(routerSendEmail);
 app.use(routerNewslatter);
 
