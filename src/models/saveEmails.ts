@@ -12,5 +12,5 @@ const NewsSchema = new Schema<NewsProps>({
   checked: { type: Boolean, default: false },
 });
 
-const SaveEmailsModel = model<NewsProps>("News", NewsSchema);
+const SaveEmailsModel = model<NewsProps>("SaveEmails", NewsSchema);
 export default SaveEmailsModel;

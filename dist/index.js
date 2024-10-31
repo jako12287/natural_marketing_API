@@ -10,12 +10,16 @@ const dataBase_1 = __importDefault(require("./dataBase"));
 const sendEmail_routes_1 = __importDefault(require("./routes/sendEmail.routes"));
 const Newslatter_routes_1 = __importDefault(require("./routes/Newslatter.routes"));
 const StatusSever_routes_1 = __importDefault(require("./routes/StatusSever.routes"));
+const SaveEmail_routes_1 = __importDefault(require("./routes/SaveEmail.routes"));
+const IpUser_routes_1 = __importDefault(require("./routes/IpUser.routes"));
 const config_1 = require("./config");
 app_1.default.use((0, cors_1.default)());
 app_1.default.use(express_1.default.json({ limit: "50mb" }));
 app_1.default.use(StatusSever_routes_1.default);
 app_1.default.use(sendEmail_routes_1.default);
 app_1.default.use(Newslatter_routes_1.default);
+app_1.default.use(SaveEmail_routes_1.default);
+app_1.default.use(IpUser_routes_1.default);
 app_1.default.get("*", (_req, res) => {
     res.send({ message: "No products available", data: {} });
 });
